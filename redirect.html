@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h1>Simulated OAuth Redirect</h1>
+    <script>
+      (function () {
+        const params = new URLSearchParams(window.location.search);
+        const code = params.get("code");
+        const state = params.get("state");
+
+        if (window.opener) {
+          console.log("Sending OAuth code to opener:", code, state);
+
+          window.opener.postMessage({ code, state }, "http://192.168.0.117:4200");
+
+          window.close();
+        } else {
+          console.warn("No opener found");
+        }
+      })();
+    </script>
+  </body>
+</html>
